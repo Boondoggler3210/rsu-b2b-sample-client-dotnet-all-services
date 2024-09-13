@@ -1,0 +1,33 @@
+{
+  "VirksomhedKalenderHent": {
+    "DateFrom": "2023-12-01",
+    "DateTo": "2024-02-29"
+  },
+  "ModtagMomsangivelseForeloebig": {
+    "Angivelsesafgifter": {
+      "MomsAngivelseAfgiftTilsvarBeloeb": 1100,
+      "MomsAngivelseCO2AfgiftBeloeb": 10,
+      "MomsAngivelseEUKoebBeloeb": 0,
+      "MomsAngivelseEUSalgBeloebVarerBeloeb": 0,
+      "MomsAngivelseIkkeEUSalgBeloebVarerBeloeb": 0,
+      "MomsAngivelseElAfgiftBeloeb": 0,
+      "MomsAngivelseEksportOmsaetningBeloeb": 0,
+      "MomsAngivelseGasAfgiftBeloeb": 0,
+      "MomsAngivelseKoebsMomsBeloeb": 5000,
+      "MomsAngivelseKulAfgiftBeloeb": 0,
+      "MomsAngivelseMomsEUKoebBeloeb": 50,
+      "MomsAngivelseMomsEUYdelserBeloeb": 60,
+      "MomsAngivelseOlieAfgiftBeloeb": 0,
+      "MomsAngivelseSalgsMomsBeloeb": 6000,
+      "MomsAngivelseVandAfgiftBeloeb": 0,
+      "MomsAngivelseEUKoebYdelseBeloeb": 0,
+      "MomsAngivelseEUSalgYdelseBeloeb": 0
+    },
+    "DateFrom": "2023-09-01",
+    "DateTo": "2024-11-30"
+  },
+  "MomsangivelseKvitteringHent": {
+    "TransaktionId": "2C8FE92-0AE3-403E-AEFA-F3A0B4508E2E"
+  },
+  "SENummer": "41250313"
+}

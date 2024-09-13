@@ -12,15 +12,25 @@ namespace UFSTWSSecuritySample
 
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile("testvalues.json", true, true)
                 .AddEnvironmentVariables()
+                .AddUserSecrets<Program>()
                 .Build();
 
             Settings settings = configuration.GetSection("Settings").Get<Settings>();
             Endpoints endpoints = configuration.GetSection("Endpoints").Get<Endpoints>();
-
-            Console.WriteLine($"Path to PCKS#12 file = {settings.PathPKCS12}");
-            Console.WriteLine($"Path to PEM file = {settings.PathPEM}");
-            Console.WriteLine($"VirksomhedKalenderHent = {endpoints.VirksomhedKalenderHent}");
+            string SENummer = configuration["SENummer"];
+            string virksomhedKalenderHentDateFrom = configuration.GetSection("VirksomhedKalenderHent")["DateFrom"];
+            string virksomhedKalenderHentDateTo = configuration.GetSection("VirksomhedKalenderHent")["DateTo"];
+            Angivelsesafgifter ModtagMomsangivelseForeloebigReturnValues = configuration.GetSection("ModtagMomsangivelseForeloebig").GetSection("Angivelsesafgifter").Get<Angivelsesafgifter>();
+            string modtagMomsangivelseForeloebigDateFrom = configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"];
+            string modtagMomsangivelseForeloebigDateTo = configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"];
+            string momsangivelseKvitteringHentTransaktionId = configuration.GetSection("MomsangivelseKvitteringHent")["TransaktionId"];
+            //Console.WriteLine($"Path to PCKS#12 file = {settings.PathPKCS12}");
+            //Console.WriteLine($"Path to PEM file = {settings.PathPEM}");
+            //Console.WriteLine($"VirksomhedKalenderHent = {endpoints.VirksomhedKalenderHent}");
+            //Console.WriteLine($"ModtagMomsangivelseForeloebig = {endpoints.ModtagMomsangivelseForeloebig}");
+            //Console.WriteLine($"MomsangivelseKvitteringHent = {endpoints.MomsangivelseKvitteringHent}");
 
             if (!File.Exists(settings.PathPKCS12))
             {
@@ -36,26 +46,42 @@ namespace UFSTWSSecuritySample
                 return;
             }
 
-            if (args.Length == 0)
-            {
-                Console.WriteLine("Invalid args");
-                return;
-            }
-
-            var command = args[0];
-
             IApiClient client = new ApiClient(settings);
-            switch (command)
+
+            while (true)
             {
-                case "VirksomhedKalenderHent":
-                    await client.CallService(new VirksomhedKalenderHentWriter("12345678", "2020-01-01", "2020-01-01"), endpoints.VirksomhedKalenderHent);
-                    Console.WriteLine("Finished");
-                    break;
-                default:
-                    Console.WriteLine("Invalid command");
-                    Console.WriteLine("dotnet run [VirksomhedKalenderHent]");
-                    break;
+                Console.WriteLine("------------------------------------------------------------------------------");
+                Console.WriteLine("1 - VirksomhedKalenderHent (Company Calendar Get)");
+                Console.WriteLine("2 - ModtagMomsangivelseForeloebig (Recieve Draft VAT Returns)");
+                Console.WriteLine("3 - MomsangivelseKvitteringHent (VAT Receipt Get)");
+                Console.WriteLine("------------------------------------------------------------------------------");
+                Console.Write("Enter a number to call the Service:"); ;
+
+                var command = Console.ReadLine();
+
+                switch (command)
+                {
+                    case "1":
+                        await client.CallService(new VirksomhedKalenderHentWriter(SENummer, virksomhedKalenderHentDateFrom, virksomhedKalenderHentDateTo), endpoints.VirksomhedKalenderHent);
+                        Console.WriteLine("Finished");
+                        break;
+                    case "2":
+                        await client.CallService(new ModtagMomsangivelseForeloebigWriter(SENummer, configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"], configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"], ModtagMomsangivelseForeloebigReturnValues), endpoints.ModtagMomsangivelseForeloebig);
+                        Console.WriteLine("Finished");
+                        break;
+                    case "3":
+                        await client.CallService(new MomsangivelseKvitteringHentWriter(SENummer, momsangivelseKvitteringHentTransaktionId), endpoints.MomsangivelseKvitteringHent);
+                        Console.WriteLine("Finished");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command");
+                        Console.WriteLine("Enter a number to call a service.");
+                        break;
+                }
+
+
             }
+
         }
     }
 }
