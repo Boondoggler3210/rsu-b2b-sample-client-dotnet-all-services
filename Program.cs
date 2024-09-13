@@ -19,13 +19,7 @@ namespace UFSTWSSecuritySample
 
             Settings settings = configuration.GetSection("Settings").Get<Settings>();
             Endpoints endpoints = configuration.GetSection("Endpoints").Get<Endpoints>();
-            string SENummer = configuration["SENummer"];
-            string virksomhedKalenderHentDateFrom = configuration.GetSection("VirksomhedKalenderHent")["DateFrom"];
-            string virksomhedKalenderHentDateTo = configuration.GetSection("VirksomhedKalenderHent")["DateTo"];
-            Angivelsesafgifter ModtagMomsangivelseForeloebigReturnValues = configuration.GetSection("ModtagMomsangivelseForeloebig").GetSection("Angivelsesafgifter").Get<Angivelsesafgifter>();
-            string modtagMomsangivelseForeloebigDateFrom = configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"];
-            string modtagMomsangivelseForeloebigDateTo = configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"];
-            string momsangivelseKvitteringHentTransaktionId = configuration.GetSection("MomsangivelseKvitteringHent")["TransaktionId"];
+
             //Console.WriteLine($"Path to PCKS#12 file = {settings.PathPKCS12}");
             //Console.WriteLine($"Path to PEM file = {settings.PathPEM}");
             //Console.WriteLine($"VirksomhedKalenderHent = {endpoints.VirksomhedKalenderHent}");
@@ -62,15 +56,15 @@ namespace UFSTWSSecuritySample
                 switch (command)
                 {
                     case "1":
-                        await client.CallService(new VirksomhedKalenderHentWriter(SENummer, virksomhedKalenderHentDateFrom, virksomhedKalenderHentDateTo), endpoints.VirksomhedKalenderHent);
+                        await client.CallService(new VirksomhedKalenderHentWriter(configuration["SENummer"], configuration.GetSection("VirksomhedKalenderHent")["DateFrom"], configuration.GetSection("VirksomhedKalenderHent")["DateTo"]), endpoints.VirksomhedKalenderHent);
                         Console.WriteLine("Finished");
                         break;
                     case "2":
-                        await client.CallService(new ModtagMomsangivelseForeloebigWriter(SENummer, configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"], configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"], ModtagMomsangivelseForeloebigReturnValues), endpoints.ModtagMomsangivelseForeloebig);
+                        await client.CallService(new ModtagMomsangivelseForeloebigWriter(configuration["SENummer"], configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"], configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"], configuration.GetSection("ModtagMomsangivelseForeloebig").GetSection("Angivelsesafgifter").Get<Angivelsesafgifter>()), endpoints.ModtagMomsangivelseForeloebig);
                         Console.WriteLine("Finished");
                         break;
                     case "3":
-                        await client.CallService(new MomsangivelseKvitteringHentWriter(SENummer, momsangivelseKvitteringHentTransaktionId), endpoints.MomsangivelseKvitteringHent);
+                        await client.CallService(new MomsangivelseKvitteringHentWriter(configuration["SENummer"], configuration.GetSection("MomsangivelseKvitteringHent")["TransaktionId"]), endpoints.MomsangivelseKvitteringHent);
                         Console.WriteLine("Finished");
                         break;
                     default:
