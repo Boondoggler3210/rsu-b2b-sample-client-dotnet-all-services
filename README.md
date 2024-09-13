@@ -14,6 +14,9 @@
 > B2B webservicene ved at bruge virksomhedens digitale signatur. UFST kan ikke stå til ansvar hvis en virksomhed
 > anvender klienten eller dele af denne i deres egne systemer. 
 
+> I have updaeted this sample to include calls to all 3 of the services for the Skat.dk moms api and make it a little easier to test with. 
+
+
 ## Build and run
 
 First build:
@@ -30,11 +33,19 @@ $ appsettings.json
 
 with the contents of `appsettings-secret.json` provided to you by UFST.
 
+Update the contents of 
+```
+$ testvalues.json
+```
+These will be used when the app is run and can be changed whilst the app is running for easier testing.
+
 Finally, run application, e.g.:
 
 ```
-$ dotnet run VirksomhedKalenderHent
+$ dotnet run 
 ```
+
+key in a number to call the selected service with values from testvalues.json
 
 ## View certificates
 
@@ -42,10 +53,4 @@ Print `server.pem`:
 
 ```
 $ openssl x509 -in server.pem -text
-```
-
-Print `VOCES_gyldig.p12`:
-
-```
-% openssl pkcs12 -in VOCES_gyldig.p12 -nodes -passin pass:"SECRET" | openssl x509 -noout -text
 ```
