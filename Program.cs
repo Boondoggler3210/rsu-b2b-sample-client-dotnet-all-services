@@ -49,7 +49,7 @@ namespace UFSTWSSecuritySample
                 Console.WriteLine("2 - ModtagMomsangivelseForeloebig (Recieve Draft VAT Returns)");
                 Console.WriteLine("3 - MomsangivelseKvitteringHent (VAT Receipt Get)");
                 Console.WriteLine("------------------------------------------------------------------------------");
-                Console.Write("Enter a number to call the Service:"); ;
+                Console.Write("Enter a number to call the Service:"); 
 
                 var command = Console.ReadLine();
 

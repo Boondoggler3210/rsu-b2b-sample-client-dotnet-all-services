@@ -24,7 +24,7 @@ namespace UFSTWSSecuritySample
             return new X509Certificate2(certificateContent, Settings.PKCS12Passphrase);
         }
 
-        private void WriteEnvelope(String envelope)
+        private string WriteEnvelope(String envelope)
         {
             var xmlWriterSettings = new XmlWriterSettings();
             xmlWriterSettings.OmitXmlDeclaration = true;
@@ -38,7 +38,7 @@ namespace UFSTWSSecuritySample
                 xmlDocument.LoadXml(envelope);
                 xmlDocument.WriteTo(xmlTextWriter);
                 xmlTextWriter.Flush();
-                Console.WriteLine(stringWriter.GetStringBuilder().ToString());
+                return stringWriter.GetStringBuilder().ToString();
             }
 
         }
@@ -53,7 +53,8 @@ namespace UFSTWSSecuritySample
 
             Console.WriteLine("REQUEST (with indentation)");
             Console.WriteLine("--------------------------");
-            WriteEnvelope(envelope);
+            await File.WriteAllTextAsync("Request.xml", WriteEnvelope(envelope));
+            Console.WriteLine(File.ReadAllText("Request.xml"));
 
 
             using (var client = new HttpClient())
@@ -68,14 +69,16 @@ namespace UFSTWSSecuritySample
                     if (!response.IsSuccessStatusCode)
                     {
                         // To-do: Log error
-                    Console.WriteLine("Error");
-                    Console.WriteLine(responseEnvelope);
-                        return null;
+                        Console.WriteLine("Error");
+                        await File.WriteAllTextAsync("Response.xml", WriteEnvelope(responseEnvelope));
+                        Console.WriteLine(File.ReadAllText("Response.xml"));
+                        return XElement.Parse(responseEnvelope);
                     }
 
                     Console.WriteLine("RESPONSE (with indentation)");
                     Console.WriteLine("---------------------------");
-                    WriteEnvelope(responseEnvelope);
+                    await File.WriteAllTextAsync("Response.xml", WriteEnvelope(responseEnvelope));
+                    Console.WriteLine(File.ReadAllText("Response.xml"));
 
 
                     // https://stackoverflow.com/questions/16956605/validate-a-xml-signature-in-a-soap-envelope-with-net

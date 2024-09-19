@@ -131,7 +131,10 @@ namespace UFSTWSSecuritySample
     public class Angivelsesafgifter
     {
         //Total VAT
-        public int MomsAngivelseAfgiftTilsvarBeloeb { get; set; }
+        public int MomsAngivelseAfgiftTilsvarBeloeb
+        {
+            get {return (MomsAngivelseSalgsMomsBeloeb + MomsAngivelseMomsEUKoebBeloeb + MomsAngivelseMomsEUYdelserBeloeb) - (MomsAngivelseKoebsMomsBeloeb + MomsAngivelseOlieAfgiftBeloeb + MomsAngivelseElAfgiftBeloeb + MomsAngivelseGasAfgiftBeloeb + MomsAngivelseKulAfgiftBeloeb + MomsAngivelseCO2AfgiftBeloeb + MomsAngivelseVandAfgiftBeloeb); }
+        }
         //CO2 Tax
         public int MomsAngivelseCO2AfgiftBeloeb { get; set; }
         //EU Acquisitions

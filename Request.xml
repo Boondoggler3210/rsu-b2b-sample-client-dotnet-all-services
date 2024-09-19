@@ -1,0 +1,76 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+  <soapenv:Header>
+    <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wsse:BinarySecurityToken
+        EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
+        ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
+        wsu:Id="X509-88bfc101-bf05-4f03-a3c5-f12c492bda9f">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</wsse:BinarySecurityToken>
+      <wsu:Timestamp
+        wsu:Id="TS-491f1c2e-9895-455c-a6f3-8d1461bcccb4">
+        <wsu:Created>2024-09-18T11:33:40.032Z</wsu:Created>
+        <wsu:Expires>2024-09-18T12:23:40.032Z</wsu:Expires>
+      </wsu:Timestamp>
+      <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+          <CanonicalizationMethod
+            Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+          <SignatureMethod
+            Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+          <Reference
+            URI="#X509-88bfc101-bf05-4f03-a3c5-f12c492bda9f">
+            <Transforms>
+              <Transform
+                Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            </Transforms>
+            <DigestMethod
+              Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+            <DigestValue>cseOcYvVqiL3lmakDKcDViynZzc=</DigestValue>
+          </Reference>
+          <Reference
+            URI="#TS-491f1c2e-9895-455c-a6f3-8d1461bcccb4">
+            <Transforms>
+              <Transform
+                Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            </Transforms>
+            <DigestMethod
+              Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+            <DigestValue>NKy8zQ1L9MPMyQyOyMJ8GdrIVJg=</DigestValue>
+          </Reference>
+          <Reference
+            URI="#element-1-1272320911598-1522000">
+            <Transforms>
+              <Transform
+                Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            </Transforms>
+            <DigestMethod
+              Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+            <DigestValue>yeqSoFZFYJfwTuOuTeRL/XgTUMM=</DigestValue>
+          </Reference>
+        </SignedInfo>
+        <SignatureValue>d9Oh3haMfLnvzUZ5EOfXcd6Gwk6ygLKWfU7jdEIN8jtoiqUEGJrzczvoEQXyj8+P6loXfIa5Jf1vElwTbi8kyAxExFmhWT+TV7eMpvYpbp5oYssjBNDCEFElAxxzcW/lH3/YA/uIDUwrUpIhPQAoOPMjh8qyEezS9IaeP2XomG90d9U2bOz25x4eyRCAr9X0HPgkPOdzCmSYIOIYM0cDHK7zozJB4EWMPzZtUPkRdYqwVnICBf20hN5Lv23psBwLTjnB/j3FVcyUaSsMaTxxzk6VChblK4o3vXjVNNkjqWU3M4CkRLgot4BwmwzJCNDWruGUv09n1lFKD7Aqk4uwLjTQCF4n01kFpodFXxuE1xfCN13aEEV3OtrCR+dXbCrqSHREFGb++2G9Pimo5VJhOmTWs3SwS4+zyu15cz2fFdyv3EsOLVyRUDsgZBgx8+N651mzi9bdXFiiMbwwTyCOIdKlmLmoSW5Zhh79BW9b79KtTGGQqiTotrn19JEyS1tI</SignatureValue>
+        <KeyInfo>
+          <wsse:SecurityTokenReference>
+            <wsse:Reference
+              URI="#X509-88bfc101-bf05-4f03-a3c5-f12c492bda9f"
+              ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" />
+          </wsse:SecurityTokenReference>
+        </KeyInfo>
+      </Signature>
+    </wsse:Security>
+  </soapenv:Header>
+  <soapenv:Body xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    wsu:Id="element-1-1272320911598-1522000">
+    <urn:VirksomhedKalenderHent_I xmlns:urn="urn:oio:skat:nemvirksomhed:ws:1.0.0">
+      <ho:HovedOplysninger xmlns:ho="http://rep.oio.dk/skat.dk/basis/kontekst/xml/schemas/2006/09/01/">
+        <ho:TransaktionIdentifikator>92f736c3-f09f-4a8a-8f93-91f96c47c780</ho:TransaktionIdentifikator>
+        <ho:TransaktionTid>2024-09-18T11:33:40.032Z</ho:TransaktionTid>
+      </ho:HovedOplysninger>
+      <urn2:VirksomhedSENummerIdentifikator xmlns:urn2="http://rep.oio.dk/skat.dk/motor/class/virksomhed/xml/schemas/20080401/">41250313</urn2:VirksomhedSENummerIdentifikator>
+      <urn1:AngivelseTypeNavn xmlns:urn1="urn:oio:skat:nemvirksomhed:1.0.0">Moms</urn1:AngivelseTypeNavn>
+      <urn:AngivelseBetalingFristHentFra>
+        <urn1:SoegeDatoFraDate xmlns:urn1="urn:oio:skat:nemvirksomhed:1.0.0">2021-06-01</urn1:SoegeDatoFraDate>
+        <urn1:SoegeDatoTilDate xmlns:urn1="urn:oio:skat:nemvirksomhed:1.0.0">2021-12-31</urn1:SoegeDatoTilDate>
+      </urn:AngivelseBetalingFristHentFra>
+    </urn:VirksomhedKalenderHent_I>
+  </soapenv:Body>
+</soapenv:Envelope>
