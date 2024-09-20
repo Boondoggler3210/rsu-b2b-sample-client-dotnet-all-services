@@ -1,4 +1,4 @@
-> This is a fork of the sample app provided by SKTST for the Danish moms api.  
+> This is a fork of the sample app provided by SKTST for the Danish Moms api.  
 > I have extended it to support making calls to all three of the webservices that are availalbe in the API. 
 > Added a "testvalues.json" file to store the values that are used in the calls to the API."
 > Added a menu in the console app to select which service to call and to input the values for the call.
