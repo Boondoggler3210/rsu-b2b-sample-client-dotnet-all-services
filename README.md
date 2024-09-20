@@ -1,3 +1,10 @@
+> This is a fork of the sample app provided by SKTST for the Danish moms api.  
+> I have extended it to support making calls to all three of the webservices that are availalbe in the API. 
+> Added a "testvalues.json" file to store the values that are used in the calls to the API."
+> Added a menu in the console app to select which service to call and to input the values for the call.
+> The original sample app can be found [here](https://github.com/skat/rsu-b2b-sample-client-dotnet).
+> The below info is from the original readme.
+
 # RSU B2B Sample Client - .NET Core Sample
 
 > **IMPORTANT NOTICE**: UFST does not provide any kind of support for the code in this repository.
@@ -13,8 +20,6 @@
 > til hurtigt at komme i gang og få afprøvet om ens virksomhed kan gennemføre et succesfuldt kald til en af 
 > B2B webservicene ved at bruge virksomhedens digitale signatur. UFST kan ikke stå til ansvar hvis en virksomhed
 > anvender klienten eller dele af denne i deres egne systemer. 
-
-> I have updaeted this sample to include calls to all 3 of the services for the Skat.dk moms api and make it a little easier to test with. 
 
 
 ## Build and run
