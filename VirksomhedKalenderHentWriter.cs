@@ -5,17 +5,18 @@ namespace UFSTWSSecuritySample
 {
     public class VirksomhedKalenderHentWriter : IPayloadWriter
     {
-        public VirksomhedKalenderHentWriter(string SENummer, string SoegeDatoFraDate, string SoegeDatoTilDate)
+        public VirksomhedKalenderHentWriter(string SENummer, string SoegeDatoFraDate, string SoegeDatoTilDate, Guid TransactionId)
         {
             seNummer = SENummer;
             soegeDatoFraDate = SoegeDatoFraDate;
             soegeDatoTilDate = SoegeDatoTilDate;
+            transactionId = TransactionId.ToString();
         }
 
         public void Write(XmlTextWriter writer)
         {
             var now = DateTime.UtcNow.ToString("o").Substring(0, 23) + "Z";
-            var transactionId = Guid.NewGuid().ToString();
+            //var transactionId = Guid.NewGuid().ToString();
             string angivelseTypeNavn = "Moms";
 
             writer.WriteStartElement("urn", "VirksomhedKalenderHent_I", "urn:oio:skat:nemvirksomhed:ws:1.0.0");
@@ -49,6 +50,8 @@ namespace UFSTWSSecuritySample
         private string soegeDatoFraDate;
 
         private string soegeDatoTilDate;
+
+        private string transactionId;
 
     }
 }

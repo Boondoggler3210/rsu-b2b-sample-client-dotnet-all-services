@@ -43,23 +43,25 @@ namespace UFSTWSSecuritySample
 
         }
 
-        public async Task<XElement> CallService(IPayloadWriter payloadWriter, String endpoint)
+        public async Task<XElement> CallService(IPayloadWriter payloadWriter, String endpoint, Guid transactionId)
         {
             var uri = new Uri(endpoint);
 
             var certificate = GetCertificate();
 
             var envelope = BuildEnvelope(certificate, payloadWriter);
-
-            Console.WriteLine("REQUEST (with indentation)");
+            Console.WriteLine();
+            Console.WriteLine("REQUEST");
             Console.WriteLine("--------------------------");
-            await File.WriteAllTextAsync("Request.xml", WriteEnvelope(envelope));
-            Console.WriteLine(File.ReadAllText("Request.xml"));
-
+            var requestFileName = payloadWriter.GetType().ToString().Substring(21).Replace("Writer", string.Empty) +"_" + transactionId + "_" + "_Request.xml";
+            await File.WriteAllTextAsync(requestFileName, WriteEnvelope(envelope));
+            //Console.WriteLine(File.ReadAllText(requestFileName));
+            Console.WriteLine($"Request: {requestFileName}");
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Post, uri))
             {
+                var responseFileName = requestFileName.Replace("Request", "Response");
                 request.Content = new StringContent(envelope, Encoding.UTF8, "text/xml");
 
                 using (var response = client.SendAsync(request).Result)
@@ -70,15 +72,17 @@ namespace UFSTWSSecuritySample
                     {
                         // To-do: Log error
                         Console.WriteLine("Error");
-                        await File.WriteAllTextAsync("Response.xml", WriteEnvelope(responseEnvelope));
-                        Console.WriteLine(File.ReadAllText("Response.xml"));
+                        await File.WriteAllTextAsync(responseFileName, WriteEnvelope(responseEnvelope));
+                        //Console.WriteLine(File.ReadAllText(responseFileName));
+                        Console.WriteLine($"Response: {responseFileName}");
                         return XElement.Parse(responseEnvelope);
                     }
-
-                    Console.WriteLine("RESPONSE (with indentation)");
+                    Console.WriteLine();
+                    Console.WriteLine("RESPONSE");
                     Console.WriteLine("---------------------------");
-                    await File.WriteAllTextAsync("Response.xml", WriteEnvelope(responseEnvelope));
-                    Console.WriteLine(File.ReadAllText("Response.xml"));
+                    await File.WriteAllTextAsync(responseFileName, WriteEnvelope(responseEnvelope));
+                    //Console.WriteLine(File.ReadAllText(responseFileName));
+                    Console.WriteLine($"Response: {responseFileName}");
 
 
                     // https://stackoverflow.com/questions/16956605/validate-a-xml-signature-in-a-soap-envelope-with-net
@@ -96,15 +100,13 @@ namespace UFSTWSSecuritySample
                     signedXml.LoadXml(signature);
 
                     bool isOk = signedXml.CheckSignature(x509Certificate2, true);
-                    Console.WriteLine("---------------------------");
                     Console.WriteLine("Signature verified: " + isOk);
-
-                    Console.WriteLine(isOk);
                     // Now check that we trust the certificate 
                     var certPem = File.ReadAllText(Settings.PathPEM);
                     var cert = X509Certificate2.CreateFromPem(certPem);
                     bool isTruested = cert.Equals(x509Certificate2);
                     Console.WriteLine("Certificate trusted: " + isTruested);
+                    Console.WriteLine();
                     return XElement.Parse(responseEnvelope);
                 }
             }

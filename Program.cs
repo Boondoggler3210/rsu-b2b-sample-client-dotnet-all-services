@@ -49,23 +49,23 @@ namespace UFSTWSSecuritySample
                 Console.WriteLine("2 - ModtagMomsangivelseForeloebig (Recieve Draft VAT Returns)");
                 Console.WriteLine("3 - MomsangivelseKvitteringHent (VAT Receipt Get)");
                 Console.WriteLine("------------------------------------------------------------------------------");
-                Console.Write("Enter a number to call the Service:"); 
+                Console.Write("Enter a number to call the Service: "); 
 
                 var command = Console.ReadLine();
-
+                Guid transactionId;
                 switch (command)
                 {
                     case "1":
-                        await client.CallService(new VirksomhedKalenderHentWriter(configuration["SENummer"], configuration.GetSection("VirksomhedKalenderHent")["DateFrom"], configuration.GetSection("VirksomhedKalenderHent")["DateTo"]), endpoints.VirksomhedKalenderHent);
-                        Console.WriteLine("Finished");
+                        transactionId = Guid.NewGuid();
+                        await client.CallService(new VirksomhedKalenderHentWriter(configuration["SENummer"], configuration.GetSection("VirksomhedKalenderHent")["DateFrom"], configuration.GetSection("VirksomhedKalenderHent")["DateTo"], transactionId), endpoints.VirksomhedKalenderHent, transactionId);
                         break;
                     case "2":
-                        await client.CallService(new ModtagMomsangivelseForeloebigWriter(configuration["SENummer"], configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"], configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"], configuration.GetSection("ModtagMomsangivelseForeloebig").GetSection("Angivelsesafgifter").Get<Angivelsesafgifter>()), endpoints.ModtagMomsangivelseForeloebig);
-                        Console.WriteLine("Finished");
+                        transactionId = Guid.NewGuid();
+                        await client.CallService(new ModtagMomsangivelseForeloebigWriter(configuration["SENummer"], configuration.GetSection("ModtagMomsangivelseForeLoebig")["DateFrom"], configuration.GetSection("ModtagMomsangivelseForeloebig")["DateTo"], configuration.GetSection("ModtagMomsangivelseForeloebig").GetSection("Angivelsesafgifter").Get<Angivelsesafgifter>(), transactionId), endpoints.ModtagMomsangivelseForeloebig, transactionId);
                         break;
                     case "3":
-                        await client.CallService(new MomsangivelseKvitteringHentWriter(configuration["SENummer"], configuration.GetSection("MomsangivelseKvitteringHent")["TransaktionId"]), endpoints.MomsangivelseKvitteringHent);
-                        Console.WriteLine("Finished");
+                        transactionId = Guid.NewGuid();
+                        await client.CallService(new MomsangivelseKvitteringHentWriter(configuration["SENummer"], configuration.GetSection("MomsangivelseKvitteringHent")["TransaktionId"], transactionId), endpoints.MomsangivelseKvitteringHent, transactionId);
                         break;
                     default:
                         Console.WriteLine("Invalid command");
